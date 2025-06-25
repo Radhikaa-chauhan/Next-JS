@@ -1,0 +1,195 @@
+// NOTES OF NEXT.JS
+
+TEMPLATE.tsx
+It is same as the layout.tsx bcoz they are used on multiple pages in your app . when a user move between pages , that use the same template , it resets everything and starts fresh.
+
+
+// Not found tsx file
+The file is used  to display  a custom "404 page when a user tries to access a route or page that does not exist.
+
+// Loading.tsx
+This file is shown when your app  is waiting for the data or the components to load.(fetching data or loading a large page).
+
+//error.tsx
+
+// Uses of external images and internal images. 
+internal images can be used easily by  just importing the images file fromm public folder whhereas if we want image from the outer source then we ahve to provide the url of the image and the height and width of  the image.
+Also for external images  we have to classify our image in the next.config.ts file.
+
+
+// Uses of the https methods
+
+Get method: To get anythhinng from the database.
+Post methhod: To  post a new method in the database.
+Patch method: To update the specific data  in the database.
+Delete method: To delete the data from the database.
+
+we use the postman api or any  other similar service for using the https methods.
+we are going to make a route.ts file in the movies folder.
+
+
+//METADATA
+Metadata is the data which gives the information about the other data like title or it may be a desriptive data.
+Inspect -> elemnts-> header
+
+export const metadata ={
+  title:"Users Page",
+  description:"This is the user page",
+}
+
+After that we also discuss that how metadata can be made dynamic
+
+
+
+/// UI libraries
+
+UIVERSE
+Tailwind css 
+Ui Lukacho
+ShadCN Ui
+Magic Ui
+Acertinity Ui
+
+
+Project 7 onwards
+
+Part 2 of the next js course
+
+paralle routing
+
+for parallel routing we have
+ folder -- members
+    subfolder -- @team 
+        file -- page.tsx
+     subfolder -- @comments 
+        file -- page.tsx
+
+when we render the parallel components the we do not use the error.tsx ad the loading.tsx file for the components as they block the whole page.... we have also delted the components folder and we now make the pages of the app  file.
+
+if we want to make parallel rotes in next.js then we have to rename it with the '@' symbol so  that  it can be converted into the slot or the parallel route. Now these file will acts as components and we also have to update the layout.tsx 
+we do not need to import these components we just need to destructure them like children in the layout.tsx file.
+Also there is one more thing in the parallel routing. Suppose if any of the component has extra folder then we have to make a default.tsx file inn another component so that error will not occur.
+
+
+// Project for Parallel routing 
+Music player 
+We install a new package lucide-react and render components like Home
+
+
+
+
+Project 8 is about how to make intercepting routes in next.js
+
+/// INTERCEPTING ROUTES
+
+yeh woh rotes hote hai let suppose ki humne kisi image pr click kia nd then refresh kia toh uska ek alag page open ho jata hai .
+
+if we want ot  make intecepted route then we have to define a folder having naming convention of "(.)folderName".
+
+in that folder write the below code:
+
+"use client";
+import React from 'react'
+import { useRouter } from 'next/navigation';
+import {X} from 'lucide-react';
+const InterceptedProductOne = () => {
+ const router = useRouter();
+   const closeModal = () => router.push("/ecommerce");
+
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50" onClick={closeModal}>
+      <div className='bg-white p-8 rounded-lg shadow-lg text-center relative'>
+        <button >
+          <X size={24} />
+            </button>
+          <h1>Wireless Mouse</h1>
+          <img src="https://i5.walmartimages.com/asr/4ffb1bf9-f800-41c8-ab29-4721de7f0786.7259b9d6e36950cc9a9eac3f5f958888.jpeg" alt="Wireless Mouse Pic"  className='w-[10rem]'/>
+          <p>Price: $25.99 </p>
+      
+      </div>
+    </div>
+  )
+}
+
+export default InterceptedProductOne
+
+
+Now if we make these type of folders then it is not a good practice so we have to define the dynamic routes.
+
+Code of the 1 product/page.tsx
+import React from 'react'
+
+const ProuctOne = () => {
+  return (
+    <div className='m-[4rem]'>
+      <h1 className='text-3xl mb-[1rem]'>Wireless Mouse</h1>
+      <img src="https://i5.walmartimages.com/asr/4ffb1bf9-f800-41c8-ab29-4721de7f0786.7259b9d6e36950cc9a9eac3f5f958888.jpeg" alt="Wireless Mouse Pic" className='w-[40rem]'/>
+      <p className='text-2xl mt-[1rem]'>Price: $25.99</p>
+    </div>
+  )
+}
+
+export default ProuctOne
+
+
+Now after deleting many folders in the ecommerece route we have to make dynamic routes .
+So less go and understanding the good practice of routing
+
+After learning the dynamic intercepted routing we are moving  on the level 2 of intercepted routing which is about what if the folder which we are looking for making the intercepted route , is not present in the current folder . So what  we do for this . we learn that concept by making a game project.
+
+Now when the route is not in the same folder then we use .. for naming convention as we do in the games project." (..)foldername " for the external intercepted route
+
+We can also use the parallel rotes and the intercepted routes together .
+For doing this we have to define our parrallel route and make the intercepted route the child of the parrallel route and  define our layout.tsx and default.tsx.
+
+Now we are moving on to the next topic which is Client and server components.
+By default every component in Next.js is server side component.In server  components there is a limmitation that we can not procide interactivity. So if we import any component the we have to use "use client"; at the top of the page and this use client convert the server component to the client component.
+
+SERVER COMPONENT:
+Data fetching
+Backend
+Private/Confidential information
+Complex Rendering Logic
+SEO-Friendly Dynamic Content
+
+CLIENT COMPONENT:
+interactivity
+State Management
+Browser APIs
+Hooks
+Client-side animation and effects
+
+If we want that a component can only be work on server side not on client side then we have to download a package which is "server-only"
+ Similary if we want to run client only then we have to download the client-only package.
+
+
+// DATA FETCHING IN THE CLIENT AND THE SERVER COMPONENT
+
+We continue code in the data fetching folder . Here we gooooo.....
+
+// PRISMA
+
+It is basically used for communicating with the database without deep diving into complicated SQL quesries..
+
+Prisma Client : It is a tool that helps u to interact with a database in a simple and efficient way. It is like a helper for your app that allows you to easily read from and write to a database without having to write complex SQL queries.
+
+Prisma Migrate : It is a tool used to manage changes to a database schema in an easy and organised way. It helps developers create , apply and track changes to the structure of  their database(like adding or removing tables or columns) over time.
+
+Prisma studio: Prisma studio is a visual tool that helps developers work with their databases. It allows you to see, edit and manage the data stored in your database through an easy to use interface , without needing to write complicated code.
+
+
+
+In prsima file  
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+ This code sets up the connection to a SQLit database, specifying the provider as SQLite and using environment variables (DATABASE_URL) to securely store and access the database URL.
+
+// i have made the prisma demo  in another file and now i am going to understand the server actions so for that i am gonna to make a todo app where i can understand the concept of server actions and now wht we have to do , we just have to setup the prsima and after setting up i have to make my database file gitignore.
+
+After the movie app we are going to understand the zod , Right now i do not know that what zod is but we are  going to understand it by making a new project zod-demos and hence here we go. Honestly speaking I am happy right now beacuse i am consistent in this and this achievement means a lot for me because i  have never  completed any  tutorials complete before this . So for the next.js I am completely dedicated this time.
+
+
