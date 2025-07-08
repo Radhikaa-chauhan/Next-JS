@@ -1,0 +1,317 @@
+we have learned about transformation properties if i forget these transformation properties then i will go to the documentation for the revision.
+
+For the  server side we just need :
+import * as motion from "motion/react-client";
+
+and for client side wee need to import
+import {motion} from "motion/react";
+
+
+
+Talking about  the transition property
+Duration: How long  the animation takes.
+Easing: The speed curvve of the animation.
+Delay: How long the wait before starting the animations.
+
+
+      
+  <motion.div 
+  className="box"
+
+  // animate={{x: 200}}  The transformation property
+  // for transition we have to define 3 attributes
+
+  initial={{x:0}}
+  animate={{scale :[1,2,2,3,4,3,2,1], //keyframe
+    rotate:[0,0,270,270,0],
+      borderRadius:['20%','20%','50%','50%','20%'],
+  
+  }}
+  // transition={{delay: 2}}
+   transition={{duration:3, ease:"easeIn"}}
+
+  />
+
+
+
+
+
+KeyFrames:
+Allows us to create more complex animations by specifying multiple points in an animation sequenc. Instead of just animating from one state to another , we can define seeveral intermediate states (frames) to control the animation more prcisely.
+
+Syntax::[start,end]
+
+
+{/* Animation on button */}
+<motion.button className='mt-100 px-4 py-2 text-white bg-blue-500 rounded outline outline-none'
+
+animate={{
+  scale:[1,1.1,1]
+}}
+transition={{
+  duration: 1,
+  repeat: Infinity,
+}}
+>Click Me</motion.button>
+</div>
+
+
+For animation on mutliple objects at a time:
+
+
+<div className='flex space-x-2'>
+ {[...Array(3)].map((_,index)=>(
+  <motion.div key={index} className='w-8 h-8 bg-teal-500 rounded-full' 
+  animate={{
+    y: [0,-15,0],
+  }}
+  transition={{
+    duration:0.6,
+    ease: "easeInOut",
+    repeat:Infinity, 
+    repeatDelay: index *0.2,
+  }}
+  />
+ )
+)}
+</div>
+
+
+
+
+
+Variants:
+Variants are a way to define different states or styles for our animations in a more organized way. Think of them as predefined animation setups that we can switch between easily.
+
+const anyname ={
+  xyz : {opacity:1, scale:1},
+  exit:{opacity: 0, scale: 0.5},
+}
+
+
+Example of Variants:
+// import {motion} from "motion/react";   FOR REACT
+"use client";
+import React from 'react'
+import {motion} from "motion/react"
+import { useState } from 'react';
+
+const variants ={
+  hidden: {opacity:0 , scale:0.8},
+  visible: {opacity: 1, scale: 1},
+  exit: {opacity: 0, scale:0.5},
+}
+
+
+const HomePage = () => {
+ const [isVisible,setIsVisible] = useState(true);
+
+return (
+<>
+{/* Variants */}
+<motion.div 
+variants={variants}
+initial="hidden"
+animate={
+ isVisible ? "visible": "hidden"
+}
+exit="exit"
+transition={{duration:1}}
+onClick={()=> setIsVisible(!isVisible)}
+className='box'
+>
+
+</motion.div>
+
+    </>
+  )
+}
+
+export default HomePage
+
+
+
+MOre Example of this variants:
+
+import * as motion from"motion/react-client";
+
+const HomePage = () => {
+ const  boxVariants ={
+  inital: { scale: 1, rotate: 0, skew:0},
+  hover: {
+    scale:1.2,
+    rotate:15,
+    skew:"10deg",
+    transitions: { duration:0.3},
+  },
+  click: {scale:0.9, rotate: -15, 
+    transition: {
+    duration:0.3
+  }}
+ }
+
+return (
+<>
+{/* Variants */}
+<motion.div className="w-40 h-40 bg-blue-500 rounded-lg" 
+variants={boxVariants}
+initial='initial'
+whileHover="hover"
+whileTap="click"
+>
+
+</motion.div>
+
+    </>
+  )
+}
+
+export default HomePage
+
+
+FLIPPING A CARD:
+
+
+"use client";
+import {motion} from "motion/react";   
+// import * as motion from"motion/react-client";
+import { useState } from "react";
+
+const cardVariants={
+  front: {rotateY:0},
+  back: {rotateY: 180},
+}
+
+const HomePage = () => {
+const  [isFlipped , setIsFlipped] = useState(false);
+
+return (
+<>
+{/* Variants */}
+
+<motion.div 
+className="perspective-1000"
+onClick={()=> setIsFlipped(!isFlipped)}
+>
+<motion.div
+variants={cardVariants}
+initial="front"
+animate={isFlipped? "back": "front"}
+transition={{duration: 0.6}}
+className="w-64 h-40 bg-white rounded-lg shadow-lg overflow-hidden transform-style-preserve-3d">
+
+<motion.div className="absolute inset-0 bg-white flex items-center justify-center text-xl font-bold">
+  Front  side
+</motion.div>
+
+<motion.div className="absolute inset-0 bg-blue-500 flex items-center justify-center text-xl font-bold rotate-y-180">
+Back  side
+</motion.div>
+
+</motion.div>
+</motion.div>
+    </>
+  )
+}
+
+export default HomePage
+
+
+
+Gestures:
+Gestures allow us to add interactive animations based on user actions like dragging, hovering, or tapping. It makes our components respond to how users interact with them.
+
+
+
+
+Drag Example with constraints:
+
+// FOR REACT
+// "use client";
+// import {motion} from "motion/react";   
+import * as motion from"motion/react-client";
+
+//whileHover
+// whileTap
+//whileDrag
+
+const HomePage = () => {
+
+return (
+<>
+{/* Variants */}
+
+<motion.div className="box" 
+// whileHover={{scale:1.2 , rotate:10}}
+// whileTap={{scale:0.8, backgroundColor:"orange"}}
+drag
+whileDrag={{ scale:1.1, backgroundColor:"blue"}}
+dragConstraints={{
+  top: -50,
+  left:-50,
+  right: 50,
+  bottom: 50,
+
+}}
+transition={{type:"spring", stiffness:300}}
+  />
+    </>
+  )
+}
+export default HomePage
+
+
+Stagger Animation
+Stagger animation refers to a technique where multiple elements animate in a sequence rather than all at once. This creates a more dynamic and visually appealing effect, as each element appears or moves slightly after the previous one, adding a sense of rhytm and flow to the animation.
+
+
+// FOR REACT
+// "use client";
+// import {motion} from "motion/react";   
+import * as motion from"motion/react-client";
+const parentVariant ={
+  hidden: {opacity:0},
+  visible: {
+    opacity:1,
+    transition:{
+     staggerChildren: 0.8},
+  }
+}
+
+const childVariant={
+  hidden: { opacity:0, y:20},
+  visible: {opacity:1, y:0},
+   
+}
+const HomePage = () => {
+return (
+<>
+
+<motion.div className="flex space-x-4"
+variants={parentVariant}
+initial="hidden"
+animate="visible"
+>
+
+  {[...Array(5)].map((_,index)=>(
+    <motion.div className="box" key={index} 
+    variants={childVariant}
+    
+    />
+  ))}
+</motion.div>
+    </>
+  )
+}
+export default HomePage
+
+
+now we learnt about scrolling , as we have studied about two types of scrolling
+1. Scroll driven 
+2. Scroll trriggered
+
+Then we learn about:
+For implementing the Scroll triggered animation we use two props:
+1. whileInViewProp
+2. Viewport Prop
+
