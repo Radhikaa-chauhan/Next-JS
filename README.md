@@ -54,11 +54,6 @@ Radhika Chauhan
 📄 License
 This repository is open source and available under the MIT License.
 
-yaml
-Copy
-Edit
-
----
 
 Let me know if you want to add:
 - A minimal banner or emoji section
